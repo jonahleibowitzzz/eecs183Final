@@ -3,8 +3,23 @@
 
 using namespace std;
 
-void Elevator::tick(int currentTime) {
-    //TODO: Implement tick
+
+   void Elevator::tick(int currentTime) {
+    servicing = true;
+    if(currentTime % TICKS_PER_ANGER_INCREASE == 0 && servicing){
+        if(targetFloor > currentFloor){
+            currentFloor++;
+        }
+        else if(targetFloor < currentFloor){
+            currentFloor--;
+        }
+        
+        
+    }
+    if(targetFloor == currentFloor){
+        servicing = false;
+    }
+}
 }
 
 void Elevator::serviceRequest(int floorNum) {
