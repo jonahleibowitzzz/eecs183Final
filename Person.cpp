@@ -9,9 +9,8 @@ Person::Person(string input_string) : Person() {
     //TODO: Implement non-default constructor
 }
 
-bool Person::tick(int currentTime) {
-    int angerLevel = 0;
-    if(currentTime % TICKS_PER_ANGER_INCREASE == 0){
+bool Person::tick(int currentTime){
+    while(currentTime % TICKS_PER_ANGER_INCREASE == 0){
         angerLevel = angerLevel + 1;
     }
     if(angerLevel >= MAX_ANGER){
