@@ -6,7 +6,10 @@
 using namespace std;
 
 Person::Person(string input_string) : Person() {
-    //TODO: Implement non-default constructor
+    turn = input_string.at(0) - '0';
+    currentFloor = input_string.at(2) - '0';
+    targetFloor = input_string.at(4) - '0';
+    angerLevel = input_string.at(6) - '0';
 }
 
 bool Person::tick(int currentTime) {
