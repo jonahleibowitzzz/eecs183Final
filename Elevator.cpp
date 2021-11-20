@@ -19,7 +19,7 @@ using namespace std;
     if(targetFloor == currentFloor){
         servicing = false;
     }
-}
+
 }
 
 void Elevator::serviceRequest(int floorNum) {
