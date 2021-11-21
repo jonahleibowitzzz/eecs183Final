@@ -18,7 +18,21 @@ void Floor::removePeople(int indicesToRemove[MAX_PEOPLE_PER_FLOOR], int numPeopl
 }
 
 void Floor::resetRequests() {
-    //TODO: Implement resetRequests
+    for(int i = 0; i < numPeople; i++){
+        if (getPersonByIndex(i).getTargetFloor() > getPersonByIndex(i).getCurrentFloor()) {
+            hasUpRequest = true;
+        }
+        else{
+            hasUpRequest = false;
+        }
+        
+        if (getPersonByIndex(i).getTargetFloor() < getPersonByIndex(i).getCurrentFloor()){
+            hasDownRequest = true;
+        }
+        else{
+            hasDownRequest = false;
+        }
+    }
 }
 
 //////////////////////////////////////////////////////
