@@ -34,7 +34,31 @@ bool Move::isValidMove(Elevator elevators[NUM_ELEVATORS]) const {
 }
 
 void Move::setPeopleToPickup(const string& pickupList, const int currentFloor, const Floor& pickupFloor) {
-    //TODO: Implement setPeopleToPickup
+    for(int i = 0; i < pickupList.size(); i++){
+        //peopleToPickup is a list of the indexes of the people to be picked up
+        peopleToPickup[i] = pickupList.at(i) - '0';
+        numPeopleToPickup++;
+    }
+    
+    int angerLevel = 0;
+    for(int k = 0; k < numPeopleToPickup; k++){
+        angerLevel = pickupFloor.getPersonByIndex(peopleToPickup[k]).getAngerLevel();
+    }
+    totalSatisfaction = MAX_ANGER - angerLevel;
+    
+    
+    int furthest = 0;
+    for(int j = 0; j < numPeopleToPickup; j++){
+      int distance =
+        pickupFloor.getPersonByIndex(peopleToPickup[j]).getTargetFloor() -
+        pickupFloor.getPersonByIndex(peopleToPickup[j]).getCurrentFloor();
+        
+        if (abs(distance) > furthest){
+            furthest = abs(distance);
+            targetFloor =
+            pickupFloor.getPersonByIndex(peopleToPickup[j]).getTargetFloor();
+        }
+    }
 }
 
 //////////////////////////////////////////////////////
