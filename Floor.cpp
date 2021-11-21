@@ -18,15 +18,16 @@ int Floor::tick(int currentTime) {
 }
 
 void Floor::addPerson(Person p, int request) {
-    if(numPeople < MAX_PEOPLE_PER_FLOOR){
+if(numPeople < MAX_PEOPLE_PER_FLOOR){
         people[numPeople] = p;
+        numPeople++;
     }
     
     if (request > 0) {
         hasUpRequest = true;
     }
     else if (request < 0) {
-        hasUpRequest = false;
+        hasDownRequest = true;
     }
 }
 
