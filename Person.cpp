@@ -6,10 +6,20 @@
 using namespace std;
 
 Person::Person(string input_string) : Person() {
-    turn = input_string.at(0) - '0';
-    currentFloor = input_string.at(2) - '0';
-    targetFloor = input_string.at(4) - '0';
-    angerLevel = input_string.at(6) - '0';
+    int i = 0;
+    int turnCount = 0;
+    
+    while(input_string.at(i) >= 48 && input_string.at(i) <= 57){
+        turnCount++;
+        i++;
+    }
+    for (int j = 0; j < turnCount; j++) {
+        turn += (input_string.at(j) - '0') * pow(10, turnCount - 1 - j);
+    }
+
+    currentFloor = input_string.at(turnCount + 1) - '0';
+    targetFloor = input_string.at(turnCount + 3) - '0';
+    angerLevel = input_string.at(turnCount + 5) - '0';
 }
 
 bool Person::tick(int currentTime) {
