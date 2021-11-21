@@ -20,7 +20,13 @@ void Elevator::tick(int currentTime) {
 }
 
 void Elevator::serviceRequest(int floorNum) {
-    //TODO: Implement serviceRequest
+    if(floorNum == targetFloor){
+        servicing = false;
+    }
+    while(floorNum != targetFloor){
+        tick(currentFloor);
+    }
+        
 }
 
 //////////////////////////////////////////////////////
