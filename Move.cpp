@@ -27,9 +27,19 @@ Move::Move(string commandString) : Move() {
 }
 
 bool Move::isValidMove(Elevator elevators[NUM_ELEVATORS]) const {
-    //TODO: Implement isValidMove
-    
-    //Returning false to prevent compilation error
+    if((isSave || isQuit || isPass) ||
+       
+       (isPickup && !elevators[elevatorId].isServicing() &&
+          elevatorId < NUM_ELEVATORS && 0 <= elevatorId) ||
+       
+       (!isQuit && !isPass && !isPickup &&
+        !elevators[elevatorId].isServicing() &&
+        elevatorId < NUM_ELEVATORS && 0 <= elevatorId &&
+        targetFloor != elevators[elevatorId].getCurrentFloor() &&
+        targetFloor < NUM_FLOORS && 0 <= targetFloor
+        )){
+        return true;
+    }
     return false;
 }
 
