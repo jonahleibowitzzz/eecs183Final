@@ -18,8 +18,11 @@ Person::Person(string input_string) : Person() {
     }
     for (int j = 0; j < turnCount; j++) {
         turn += (input_string.at(j) - '0') * pow(10, turnCount - 1 - j);
-    };
+    }
     
+    currentFloor = input_string.at(turnCount + 1) - '0';
+    targetFloor = input_string.at(turnCount + 3) - '0';
+    angerLevel = input_string.at(turnCount + 5) - '0';
 }
 
 
