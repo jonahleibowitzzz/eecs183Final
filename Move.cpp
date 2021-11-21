@@ -43,9 +43,8 @@ void Move::setPeopleToPickup(const string& pickupList, const int currentFloor, c
     int angerLevel = 0;
     for(int k = 0; k < numPeopleToPickup; k++){
         angerLevel = pickupFloor.getPersonByIndex(peopleToPickup[k]).getAngerLevel();
+	totalSatisfaction += MAX_ANGER - angerLevel;
     }
-    totalSatisfaction = MAX_ANGER - angerLevel;
-    
     
     int furthest = 0;
     for(int j = 0; j < numPeopleToPickup; j++){
