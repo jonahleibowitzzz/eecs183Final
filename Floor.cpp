@@ -6,14 +6,13 @@ int Floor::tick(int currentTime) {
     int explodeCount = 0;
     int exploded[MAX_PEOPLE_PER_FLOOR];
     for(int i = 0; i < numPeople; i++){
-        if(getPersonByIndex(i).tick(currentTime)){
+        if(people[i].tick(currentTime)){
             exploded[explodeCount] = i;
             explodeCount++;
         }
     }
     
     removePeople(exploded, explodeCount);
-    
     return explodeCount;
 }
 
@@ -24,42 +23,15 @@ void Floor::addPerson(Person p, int request) {
     }
     
     if (request > 0) {
-        hasUpRequest = true;
+        setHasUpRequest(true);
     }
     else if (request < 0) {
-        hasDownRequest = true;
+        setHasDownRequest(true);
     }
 }
 
 void Floor::removePeople(int indicesToRemove[MAX_PEOPLE_PER_FLOOR], int numPeopleToRemove) {
-    /*
-     What we need to do:
-     Given:
-     Array of people objects
-     Number index for each person
-     List of indices to be removed (not always in order)
-     
-     Remove each of the indicated people
-     Close list so there is no white space
-     
-     Plan:
-     SECOND SOLUTION
-     For loop the number of times of numPeopleToRemove
-     Erase single person, back the remaining items up
-        Create for loop starting at index to remove, equals everything back one index. Last index set to 0
-        
-     
-     Update numPeople
-     Reassess up/down requests at the end using function
-     
-     Tester:
-     cout << "ORIGINAL:" << endl;
-     for (int i = 0; i < MAX_PEOPLE_PER_FLOOR; i++) {
-         cout << "Person " << i << " turn: " << people[i].getTurn() << endl;
-     }
-     */
-    
-    
+   
     ///Blank all indicated indices
     Person blank;
     for(int i = 0; i < numPeopleToRemove; i++){
@@ -71,7 +43,7 @@ void Floor::removePeople(int indicesToRemove[MAX_PEOPLE_PER_FLOOR], int numPeopl
         for(int i = 0; i < numPeople; i++){
             if(people[i].getTurn() == 0 && people[i].getAngerLevel() == 0 &&
                people[i].getTargetFloor() == 0 && people[i].getCurrentFloor() == 0){
-                for(int j = i; j < numPeople; j++){ //ISSUES WHEN ALL 10 ARE FILLED?
+                for(int j = i; j < numPeople; j++){
                     people[j] = people[j + 1];
                 }
             }
@@ -82,14 +54,14 @@ void Floor::removePeople(int indicesToRemove[MAX_PEOPLE_PER_FLOOR], int numPeopl
 }
 
 void Floor::resetRequests() {
-    hasUpRequest = false;
-    hasDownRequest = false;
+    setHasUpRequest(false);
+    setHasDownRequest(false);
     for(int i = 0; i < numPeople; i++){
         if (getPersonByIndex(i).getTargetFloor() > getPersonByIndex(i).getCurrentFloor()) {
-            hasUpRequest = true;
+            setHasUpRequest(true);
         }
         if (getPersonByIndex(i).getTargetFloor() < getPersonByIndex(i).getCurrentFloor()){
-            hasDownRequest = true;
+            setHasDownRequest(true);
         }
     }
 }
