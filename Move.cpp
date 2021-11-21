@@ -11,12 +11,12 @@ Move::Move(string commandString) : Move() {
         isPass = true;
     }
     else if(commandString.length() == 4){
-        elevatorId = commandString.at(1);
-        targetFloor = commandString.at(3);
+        elevatorId = commandString.at(1) -'0';
+        targetFloor = commandString.at(3) -'0';
     }
     else if(commandString.length() == 3){
         isPickup = true;
-        elevatorId = commandString.at(1);
+        elevatorId = commandString.at(1) -'0';
     }
     else if(commandString == "s" || commandString == "S"){
         isSave = true;
