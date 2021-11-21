@@ -35,12 +35,9 @@ void Elevator::tick(int currentTime) {
  */
 
 void Elevator::serviceRequest(int floorNum) {
-    if(floorNum == targetFloor){
-        servicing = false;
-    }
-    while(floorNum != targetFloor){
-        tick(currentFloor);
-    }
+    targetFloor = floorNum;
+    servicing = true;
+    
         
 }
 
