@@ -5,21 +5,18 @@ using namespace std;
 
 
    void Elevator::tick(int currentTime) {
-    servicing = true;
-    if(currentTime % TICKS_PER_ANGER_INCREASE == 0 && servicing){
+    if (currentTime % TICKS_PER_ELEVATOR_MOVE == 0 && servicing == true) {
         if(targetFloor > currentFloor){
             currentFloor++;
         }
         else if(targetFloor < currentFloor){
             currentFloor--;
         }
-        
-        
     }
-    if(targetFloor == currentFloor){
+    
+    if(currentFloor == targetFloor){
         servicing = false;
     }
-
 }
 
 void Elevator::serviceRequest(int floorNum) {
