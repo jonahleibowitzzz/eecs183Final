@@ -12,7 +12,7 @@ int Floor::tick(int currentTime) {
         }
     }
     
-    removePeople(exploded, sizeof(exploded));
+    removePeople(exploded, explodeCount);
     
     return explodeCount;
 }
