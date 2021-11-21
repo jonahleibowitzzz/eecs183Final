@@ -7,7 +7,23 @@
 using namespace std;
 
 Move::Move(string commandString) : Move() {
-    //TODO: Implement non-default constructor
+    if (commandString == ""){
+        isPass = true;
+    }
+    else if(commandString.length() == 4){
+        elevatorId = commandString.at(1);
+        targetFloor = commandString.at(3);
+    }
+    else if(commandString.length() == 3){
+        isPickup = true;
+        elevatorId = commandString.at(1);
+    }
+    else if(commandString == "s" || commandString == "S"){
+        isSave = true;
+    }
+    else if(commandString == "q" || commandString == "Q"){
+        isQuit = true;
+    }
 }
 
 bool Move::isValidMove(Elevator elevators[NUM_ELEVATORS]) const {
