@@ -3,14 +3,31 @@
 using namespace std;
 
 int Floor::tick(int currentTime) {
-    //TODO: Implement tick
-
-    //returning 0 to prevent compilation error
-    return 0;
+    int explodeCount = 0;
+    int exploded[MAX_PEOPLE_PER_FLOOR];
+    for(int i = 0; i < numPeople; i++){
+        if(getPersonByIndex(i).tick(currentTime)){
+            exploded[explodeCount] = i;
+            explodeCount++;
+        }
+    }
+    
+    removePeople(exploded, sizeof(exploded));
+    
+    return explodeCount;
 }
 
 void Floor::addPerson(Person p, int request) {
-    //TODO: Implement addPerson
+    if(numPeople < MAX_PEOPLE_PER_FLOOR){
+        people[numPeople] = p;
+    }
+    
+    if (request > 0) {
+        hasUpRequest = true;
+    }
+    else if (request < 0) {
+        hasUpRequest = false;
+    }
 }
 
 void Floor::removePeople(int indicesToRemove[MAX_PEOPLE_PER_FLOOR], int numPeopleToRemove) {
