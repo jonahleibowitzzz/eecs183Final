@@ -4,20 +4,35 @@
 using namespace std;
 
 
+/**
+* Requires: currentTime is valid
+* Modifies: currentFloor, servicing
+* Effects:  Moves the value of current floor by 1 in the direction of the target
+*           floor if the currentTime is divisible by TICKS_PER_ELEVATOR_MOVE and
+*           the elevator is servicing a request.
+*           If the new current floor is the target floor, servicing is set to false
+*/
 void Elevator::tick(int currentTime) {
-   if (currentTime % TICKS_PER_ELEVATOR_MOVE == 0 && servicing == true) {
-      if(targetFloor > currentFloor){
-          currentFloor++;
-      }
-      else if(targetFloor < currentFloor){
-          currentFloor--;
-      }
-   }
+    if (currentTime % TICKS_PER_ELEVATOR_MOVE == 0 && servicing == true) {
+        if(targetFloor > currentFloor){
+            currentFloor++;
+        }
+        else if(targetFloor < currentFloor){
+            currentFloor--;
+        }
+    }
     
-   if(currentFloor == targetFloor){
-       servicing = false;
-   }
+    if(currentFloor == targetFloor){
+        servicing = false;
+    }
 }
+
+/**
+ * Requires: 0 <= floorNum <= NUM_FLOORS
+ * Modifies: targetFloor, servicing
+ * Effects:  Sets the targetFloor and marks the Elevator as
+ *           currently servicing
+ */
 
 void Elevator::serviceRequest(int floorNum) {
     if(floorNum == targetFloor){
