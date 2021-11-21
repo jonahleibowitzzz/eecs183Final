@@ -5,22 +5,25 @@
 
 using namespace std;
 
+
+
+    
 Person::Person(string input_string) : Person() {
     int i = 0;
     int turnCount = 0;
-    
+            
     while(input_string.at(i) >= 48 && input_string.at(i) <= 57){
         turnCount++;
         i++;
     }
     for (int j = 0; j < turnCount; j++) {
         turn += (input_string.at(j) - '0') * pow(10, turnCount - 1 - j);
-    }
-
-    currentFloor = input_string.at(turnCount + 1) - '0';
-    targetFloor = input_string.at(turnCount + 3) - '0';
-    angerLevel = input_string.at(turnCount + 5) - '0';
+    };
+    
 }
+
+
+
 
 bool Person::tick(int currentTime) {
     if(currentTime % TICKS_PER_ANGER_INCREASE == 0){
@@ -31,9 +34,9 @@ bool Person::tick(int currentTime) {
     }
     return false;
 }
-    
+
 void Person::print(ostream &outs) {    
-    //TODO: Implement print
+    outs << "f" << currentFloor << "t" << targetFloor << "a" <<angerLevel;
 }
 
 //////////////////////////////////////////////////////
