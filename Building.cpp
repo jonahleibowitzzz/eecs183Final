@@ -1,7 +1,6 @@
 #include "Building.h"
 
 using namespace std;
-//z is direction person wants to go
 
 void Building::spawnPerson(Person newPerson){
     int x = newPerson.getCurrentFloor();
@@ -20,29 +19,19 @@ void Building::spawnPerson(Person newPerson){
     }
 }
 
-
-/*
-* Requires: move is a valid move
-* Modifies: The building member variables affected by the move
-* Effects: Applies the move to the building:
-*          * If the move is a Pass Move, nothing happens
-*          * If the move is a Pickup Move, copies the list of people to
-*            pickup into an array, and calls removePeople() on the
-*            appropriate floor
-*          * For both Pickup Moves and Service Moves, the appropriate
-*            elevator should be sent to service the targetFloor of the move
-*/
-
 void Building::update(Move move){
-    if(!move.isPassMove()){
-        elevators[move.getElevatorId()].serviceRequest(move.getTargetFloor());
-    }
     if(move.isPickupMove()){
         int pickupCopy[move.getNumPeopleToPickup()];
         move.copyListOfPeopleToPickup(pickupCopy);
         
+        //removes people from target floor
         floors[move.getTargetFloor()].removePeople(pickupCopy, move.getNumPeopleToPickup());
     }
+    
+    if(!move.isPassMove()){
+        elevators[move.getElevatorId()].serviceRequest(move.getTargetFloor());
+    }
+
 }
 
 int Building::tick(Move move){
@@ -50,7 +39,7 @@ int Building::tick(Move move){
     update(move);
     
     //tick elevators
-    for(int i = 1; i <= NUM_ELEVATORS; i++){
+    for(int i = 0; i < NUM_ELEVATORS; i++){
         elevators[i].tick(time);
     }
     
@@ -195,4 +184,3 @@ BuildingState Building::getBuildingState() const {
 
     return buildingState;
 }
-
