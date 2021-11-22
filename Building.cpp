@@ -1,13 +1,44 @@
 #include "Building.h"
 
 using namespace std;
+//z is direction person wants to go
 
 void Building::spawnPerson(Person newPerson){
-    //TODO: Implement spawnPerson
+    int x = newPerson.getCurrentFloor();
+    int y = newPerson.getTargetFloor();
+    if(x <= 9 && x >= 0){
+        if(y <= 9 && y >= 0){
+            int z;
+            if(x > y){
+                 z = -1;
+            }
+            else {
+            z = 1;
+            }
+            floors[x].addPerson(newPerson, z);
+        }
+    }
 }
 
+
+/*
+* Requires: move is a valid move
+* Modifies: The building member variables affected by the move
+* Effects: Applies the move to the building:
+*          * If the move is a Pass Move, nothing happens
+*          * If the move is a Pickup Move, copies the list of people to
+*            pickup into an array, and calls removePeople() on the
+*            appropriate floor
+*          * For both Pickup Moves and Service Moves, the appropriate
+*            elevator should be sent to service the targetFloor of the move
+*/
+
 void Building::update(Move move){
-    //TODO: Implement update
+    if(move.isPassMove()==false){
+        if(move.isPickupMove()){
+            Person people[MAX_PEOPLE_PER_FLOOR];
+        }
+    }
 }
 
 int Building::tick(Move move){
@@ -147,3 +178,4 @@ BuildingState Building::getBuildingState() const {
 
     return buildingState;
 }
+
