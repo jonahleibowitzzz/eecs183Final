@@ -11,7 +11,7 @@ Move::Move(string commandString) : Move() {
         isPass = true;
     }
     else if(commandString.length() == 4){
-        elevatorId = commandString.at(1) -'0';
+        elevatorId = commandString.at(1) - '0';
         targetFloor = commandString.at(3) -'0';
     }
     else if(commandString.length() == 3){
@@ -53,7 +53,7 @@ void Move::setPeopleToPickup(const string& pickupList, const int currentFloor, c
     int angerLevel = 0;
     for(int k = 0; k < numPeopleToPickup; k++){
         angerLevel = pickupFloor.getPersonByIndex(peopleToPickup[k]).getAngerLevel();
-	totalSatisfaction += MAX_ANGER - angerLevel;
+        totalSatisfaction += MAX_ANGER - angerLevel;
     }
     
     int furthest = 0;
