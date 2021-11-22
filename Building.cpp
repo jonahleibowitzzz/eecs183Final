@@ -34,18 +34,35 @@ void Building::spawnPerson(Person newPerson){
 */
 
 void Building::update(Move move){
-    if(move.isPassMove()==false){
-        if(move.isPickupMove()){
-            Person people[MAX_PEOPLE_PER_FLOOR];
-        }
+    if(!move.isPassMove()){
+        elevators[move.getElevatorId()].serviceRequest(move.getTargetFloor());
+    }
+    if(move.isPickupMove()){
+        int pickupCopy[move.getNumPeopleToPickup()];
+        move.copyListOfPeopleToPickup(pickupCopy);
+        
+        floors[move.getTargetFloor()].removePeople(pickupCopy, move.getNumPeopleToPickup());
     }
 }
 
 int Building::tick(Move move){
-    //TODO: Implement tick
+    time++;
+    update(move);
+    
+    //tick elevators
+    for(int i = 1; i <= NUM_ELEVATORS; i++){
+        elevators[i].tick(time);
+    }
+    
+    int exploded = 0;
+    //tick floors/people
+    for(int j = 0; j < NUM_FLOORS; j++){
+        exploded += floors[j].tick(time);
+        for(int k = 0; k < floors[j].getNumPeople(); k++)
+            floors[j].getPersonByIndex(k).tick(time);
+    }
 
-    //returning 0 to prevent compilation error
-    return 0;
+    return exploded;
 }
 
 //////////////////////////////////////////////////////
