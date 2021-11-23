@@ -21,17 +21,18 @@ void Building::spawnPerson(Person newPerson){
 
 void Building::update(Move move){
     if(move.isPickupMove()){
-        int pickupCopy[move.getNumPeopleToPickup()];
+    
+        int pickupCopy[MAX_PEOPLE_PER_FLOOR];
         move.copyListOfPeopleToPickup(pickupCopy);
         
         //removes people from target floor
-        floors[move.getTargetFloor()].removePeople(pickupCopy, move.getNumPeopleToPickup());
+        floors[elevators[move.getElevatorId()].getCurrentFloor()]
+            .removePeople(pickupCopy, move.getNumPeopleToPickup());
     }
     
     if(!move.isPassMove()){
         elevators[move.getElevatorId()].serviceRequest(move.getTargetFloor());
     }
-
 }
 
 int Building::tick(Move move){
