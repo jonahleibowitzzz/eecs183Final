@@ -35,7 +35,8 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
 // You will need to implement this function in the Reach
 //  according to the RME and spec
 bool Game::isValidPickupList(const string& pickupList, const int pickupFloorNum) const {
-    int firstIndex = pickupList.at(0) - 'A';
+    int firstIndex = pickupList.at(0) - '0';
+    cout << firstIndex << endl;
     bool direction = false;
     if(building.getFloorByFloorNum(pickupFloorNum).getPersonByIndex(firstIndex).getTargetFloor() > pickupFloorNum){
         direction = true;
@@ -48,7 +49,7 @@ bool Game::isValidPickupList(const string& pickupList, const int pickupFloorNum)
     
     bool directionCheck = false;
     for (int i = 0; i < pickupList.length(); i++) {
-        if(pickupList.at(i) < 0 || pickupList.at(i) >= building.getFloorByFloorNum(i).getNumPeople()){
+        if(pickupList.at(i) - '0' < 0 || pickupList.at(i) - '0' >= building.getFloorByFloorNum(i).getNumPeople()){
             return false;
         }
         if(building.getFloorByFloorNum(pickupFloorNum).getPersonByIndex(i).getTargetFloor() > pickupFloorNum){
@@ -58,7 +59,7 @@ bool Game::isValidPickupList(const string& pickupList, const int pickupFloorNum)
             return false;
         }
         for(int j = i + 1; j < pickupList.length(); j++){
-            if (pickupList.at(i) == pickupList.at(j)){
+            if (pickupList.at(i) - '0' == pickupList.at(j) - '0'){
                 return false;
             }
         }
