@@ -9,30 +9,25 @@ using namespace std;
 // You will need to implement this function in the Reach
 // according to the RME and spec
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
-    std::mt19937 gen(1);
-    std::uniform_int_distribution<> floorDist(0, 9);
-    std::uniform_int_distribution<> angerDist(0, 3);
-
-    isAIMode = isAIModeIn;
-    printGameStartPrompt();
-    initGame(gameFile);
-
-    while (true) {
-        int src = floorDist(gen);
-        int dst = floorDist(gen);
-        if (src != dst) {
-            std::stringstream ss;
-            ss << "0f" << src << "t" << dst << "a" << angerDist(gen);
-            Person p(ss.str());
-            building.spawnPerson(p);
-        }
-
+    
+    isAIModeIn = isAIMode;
+    if(!gameFile.is_open()){
+        printExitMenu();
+    }
+    else{
+        while(gameFile.is_open()){
+        printGameStartPrompt();
+        initGame(gameFile);
+        
+    
         building.prettyPrintBuilding(cout);
         satisfactionIndex.printSatisfaction(cout, false);
         checkForGameEnd();
 
         Move nextMove = getMove();
         update(nextMove);
+        }
+        printExitMenu();
     }
 }
 
