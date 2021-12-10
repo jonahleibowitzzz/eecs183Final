@@ -15,13 +15,20 @@
 *           human player's move input.
 */
 string getAIMoveString(const BuildingState& buildingState) {
+     //Turn = 0
     if(buildingState.turn==0){
         return "";
     }
+   //All elevators are servicing
     if(buildingState.elevators[0].isServicing && buildingState.elevators[1].isServicing && buildingState.elevators[2].isServicing){
         return "";
     }
-    if(buildingState.floors[0].numPeople == 0 && buildingState.floors[1].numPeople == 0 &&buildingState.floors[2].numPeople == 0 &&buildingState.floors[3].numPeople == 0 &&buildingState.floors[4].numPeople == 0 &&buildingState.floors[5].numPeople == 0 &&buildingState.floors[6].numPeople == 0 &&buildingState.floors[7].numPeople == 0 &&buildingState.floors[8].numPeople == 0 &&buildingState.floors[9].numPeople == 0){
+   //No people on all floors
+    if(buildingState.floors[0].numPeople == 0 && buildingState.floors[1].numPeople == 0 
+       &&buildingState.floors[2].numPeople == 0 &&buildingState.floors[3].numPeople == 0 
+       &&buildingState.floors[4].numPeople == 0 &&buildingState.floors[5].numPeople == 0 
+       &&buildingState.floors[6].numPeople == 0 &&buildingState.floors[7].numPeople == 0 
+       &&buildingState.floors[8].numPeople == 0 &&buildingState.floors[9].numPeople == 0){
         return "";
     
 }
