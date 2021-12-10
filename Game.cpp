@@ -10,26 +10,35 @@ using namespace std;
 // according to the RME and spec
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     
-    isAIModeIn = isAIMode;
     if(!gameFile.is_open()){
-        printExitMenu();
+        exit(EXIT_FAILURE);
     }
-    else{
-        while(gameFile.is_open()){
+        isAIMode = isAIModeIn;
         printGameStartPrompt();
         initGame(gameFile);
-        
     
+    string load;
+    while(gameFile >> load) {
+        Person p1(load);
+        while(building.getTime() <= p1.getTurn()){
+            building.prettyPrintBuilding(cout);
+            satisfactionIndex.printSatisfaction(cout, false);
+            checkForGameEnd();
+            Move nextMove = getMove();
+            update(nextMove);
+        }
+        building.spawnPerson(p1);
+        
+    }
+    while(true){
         building.prettyPrintBuilding(cout);
         satisfactionIndex.printSatisfaction(cout, false);
         checkForGameEnd();
-
         Move nextMove = getMove();
         update(nextMove);
-        }
-        printExitMenu();
     }
 }
+    
 
 // Stub for isValidPickupList for Core
 // You will need to implement this function in the Reach
